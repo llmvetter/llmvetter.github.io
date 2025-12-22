@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Library | Your Name</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
+    <style>
+        :root {
+            --grid-width: 900px; /* The fixed width of your library */
+        }
+
+        body {
+            padding-top: 2rem;
+            background-color: #11191f;
+        }
+
+        /* The Fixed-Width Container */
+        .library-container {
+            max-width: var(--grid-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* The Tile Grid */
+        .paper-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Individual Paper Tiles */
+        .paper-card {
+            background: #1c252c;
+            border: 1px solid #2d3d4a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .paper-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b5bdb;
+        }
+
+        .paper-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .paper-card p {
+            font-size: 0.9rem;
+            color: #a0aeba;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #3b5bdb;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="library-container">
+        <header>
+            <nav>
+                <ul><li><a href="index.html">← Back to Home</a></li></ul>
+                <ul><li><strong>Reading Library</strong></li></ul>
+            </nav>
+            <h1>Papers & Research</h1>
+            <p>A collection of interesting papers I've read and analyzed.</p>
+            <hr>
+        </header>
+
+        <main class="paper-grid">
+            <article class="paper-card">
+                <div>
+                    <span class="tag">Machine Learning</span>
+                    <h4>Attention Is All You Need</h4>
+                    <p>The foundational paper for Transformer models and modern LLMs.</p>
+                </div>
+                <a href="https://arxiv.org/abs/1706.03762" target="_blank" class="secondary">Read Paper</a>
+            </article>
+
+            <article class="paper-card">
+                <div>
+                    <span class="tag">Computing</span>
+                    <h4>The Computer for the 21st Century</h4>
+                    <p>Mark Weiser’s vision of ubiquitous computing.</p>
+                </div>
+                <a href="#" class="secondary">Read Paper</a>
+            </article>
+
+            </main>
+    </div>
+
+</body>
+</html>
