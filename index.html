@@ -5,70 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Name | Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
+    <style>
+        /* Force the page to be exactly the size of the window and prevent scrolling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+            background-color: #11191f; /* Matches Pico's dark theme background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The 3D background layer */
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        /* The text layer centered on top of the sphere */
+        .content-overlay {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            pointer-events: none; /* Allows mouse movement to pass through to the sphere */
+        }
+
+        .content-overlay h1, 
+        .content-overlay p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Re-enable clicking for the button */
+        .button-container {
+            pointer-events: auto;
+            margin-top: 1.5rem;
+        }
+        
+        /* Make the sphere slightly transparent so text is legible */
+        canvas {
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
-    <div id="canvas-container" style="width: 100%; height: 400px; margin-bottom: 2rem;"></div>
-    <nav class="container">
-        <ul><li><strong>Your Name</strong></li></ul>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#cv">CV</a></li>
-            <li><a href="cv.pdf" role="button">Download PDF</a></li>
-        </ul>
-    </nav>
 
-    <main class="container">
-        <section id="about">
-            <h1>Hello, I'm [Name]</h1>
-            <p>I am a [Job Title/Student] focusing on [Interest]. Welcome to my personal space.</p>
-        </section>
+    <div id="canvas-container"></div>
 
-        <hr>
+    <div class="content-overlay">
+        <main class="container">
+            <h1>Your Name</h1>
+            <p>Developer | Designer | Researcher</p>
+            
+            <div class="button-container">
+                <a href="cv.pdf" role="button" class="contrast">View CV / Portfolio</a>
+            </div>
+        </main>
+    </div>
 
-        <section id="cv">
-            <h2>Curriculum Vitae</h2>
-            <h3>Experience</h3>
-            <ul>
-                <li><strong>Role Name</strong> | Company Name (2022 - Present)
-                    <p>Brief description of what you achieved there.</p>
-                </li>
-            </ul>
-
-            <h3>Education</h3>
-            <ul>
-                <li><strong>Degree Name</strong> | University (2018 - 2022)</li>
-            </ul>
-
-            <h3>Skills</h3>
-            <p>Python, Project Management, Technical Writing, Git.</p>
-        </section>
-    </main>
-
-    <footer class="container">
-        <small><a href="https://github.com/yourusername">GitHub</a> • <a href="https://linkedin.com/in/yourusername">LinkedIn</a></small>
-    </footer>
     <script type="module">
         import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
 
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         
-        // Camera setup
-        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        // Camera setup - aspect ratio follows window size
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 5;
 
-        // Renderer setup
+        // Renderer setup with transparency
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
-        // Replace the "Create the Point Cloud" block with this for a spherical look
+        // Create Spherical Point Cloud
         const geometry = new THREE.BufferGeometry();
         const vertices = [];
-        for (let i = 0; i < 1000; i++) {
-            // This math creates a beautiful spherical distribution
-            const phi = Math.acos(-1 + (2 * i) / 1000);
-            const theta = Math.sqrt(1000 * Math.PI) * phi;
+        const pointCount = 1000;
+
+        for (let i = 0; i < pointCount; i++) {
+            // Fibonacci Sphere algorithm for even distribution
+            const phi = Math.acos(-1 + (2 * i) / pointCount);
+            const theta = Math.sqrt(pointCount * Math.PI) * phi;
 
             vertices.push(
                 2.5 * Math.cos(theta) * Math.sin(phi), // x
@@ -78,23 +103,31 @@
         }
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 
-        const material = new THREE.PointsMaterial({ color: 0x3b5bdb, size: 0.05 });
+        // Material styling - Adjust color and size here
+        const material = new THREE.PointsMaterial({ 
+            color: 0x3b5bdb, 
+            size: 0.04,
+            transparent: true,
+            opacity: 0.8
+        });
+        
         const points = new THREE.Points(geometry, material);
         scene.add(points);
 
         // Animation Loop
         function animate() {
             requestAnimationFrame(animate);
-            points.rotation.y += 0.002; // Rotation speed
-            points.rotation.x += 0.001;
+            // Slow, elegant rotation
+            points.rotation.y += 0.0015;
+            points.rotation.x += 0.0008;
             renderer.render(scene, camera);
         }
 
-        // Handle Resize
+        // Responsive Resize handling
         window.addEventListener('resize', () => {
-            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
         animate();
