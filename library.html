@@ -48,7 +48,7 @@
         }
 
         .paper-card h4 {
-            font-family: 'Latin Modern Roman', serif; /* Academic title */
+            font-family: 'JetBrains Mono', monospace; /* Academic title */
             font-size: 1.2rem;
         }
 
@@ -60,7 +60,7 @@
         .tag {
             font-family: 'JetBrains Mono', monospace; /* Technical tag */
             font-size: 0.7rem;
-            color: #00ff41;
+            color: #3b5bdb;
         }
     </style>
 </head>
@@ -69,31 +69,44 @@
     <div class="library-container">
         <header>
             <nav>
-                <ul><li><a href="index.html">← Back to Home</a></li></ul>
+                <ul><li><a href="index.html">Home</a></li></ul>
             </nav>
-            <h1>Papers & Research</h1>
-            <p>A collection of interesting machine learning papers.</p>
-            <hr>
         </header>
 
         <main class="paper-grid">
             <article class="paper-card">
                 <div>
-                    <span class="tag">Machine Learning</span>
-                    <h4>Attention Is All You Need</h4>
-                    <p>The foundational paper for Transformer models and modern LLMs.</p>
+                    <span class="tag">Optimization</span>
+                    <h4>Automatic differentiation in machine learning: a survey</h4>
+                    <p>Workings of automated differentiation frameworks.</p>
                 </div>
-                <a href="https://arxiv.org/abs/1706.03762" target="_blank" class="secondary">Read Paper</a>
+                <a href="http://arxiv.org/abs/1502.05767" target="_blank" class="secondary">Paper</a>
             </article>
-
             <article class="paper-card">
                 <div>
-                    <span class="tag">Computing</span>
-                    <h4>The Computer for the 21st Century</h4>
-                    <p>Mark Weiser’s vision of ubiquitous computing.</p>
+                    <span class="tag">Optimization</span>
+                    <h4>Stochastic Gradient Descent Tricks</h4>
+                    <p>Speeding up convergence</p>
                 </div>
-                <a href="#" class="secondary">Read Paper</a>
+                <a href="https://www.microsoft.com/en-us/research/publication/stochastic-gradient-tricks/" target="_blank" class="secondary">Paper</a>
             </article>
+            <article class="paper-card">
+                <div>
+                    <span class="tag">Optimization</span>
+                    <h4>Adam: A Method for Stochastic Optimization.</h4>
+                    <p>Foundational optimizer for ML</p>
+                </div>
+                <a href="https://arxiv.org/abs/1412.6980" target="_blank" class="secondary">Paper</a>
+            </article>
+            <article class="paper-card">
+                <div>
+                    <span class="tag">Machine Learning</span>
+                    <h4>Attention Is All You Need</h4>
+                    <p>The foundational paper on Transformer Architecture</p>
+                </div>
+                <a href="https://arxiv.org/abs/1706.03762" target="_blank" class="secondary">Paper</a>
+            </article>
+            
 
             </main>
     </div>
